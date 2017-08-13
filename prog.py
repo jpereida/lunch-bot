@@ -1,5 +1,18 @@
 import datetime
 import mysql.connector as mariadb
+from twython import Twython
+from auth import (
+    consumer_key,
+    consumer_secret,
+    access_token,
+    access_token_secret
+)
+twitter = Twython(
+    consumer_key,
+    consumer_secret,
+    access_token,
+    access_token_secret
+)
 
 # Connection to the database
 db_conn = mariadb.connect(user='root', password='testpassword', database='jp1')
@@ -15,9 +28,16 @@ cursor.execute(query, (today,today))
 #   Instead of printing out the message, create the message and 
 #   tweet it.
 
+message = ""
+
 # Print out the menu today with a customized message
 for (primary_meal) in cursor:
-  print("Good morning, Ralls! {} is for lunch today.".format((primary_meal[0].encode("utf-8"))))
+      message = "Good morning, Ralls! {} is for lunch today.".format((primary_meal[0].encode("utf-8")))
+
+# Only send the tweet if we have a result  
+if message:
+  twitter.update_status(status=message)
+  print("Tweeted: {}".format(message))
 
 # Close the cursor and the db connection
 cursor.close()
