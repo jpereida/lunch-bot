@@ -1,4 +1,5 @@
 import datetime
+import random
 import mysql.connector as mariadb
 from twython import Twython
 from auth import (
@@ -14,6 +15,14 @@ twitter = Twython(
     access_token_secret
 )
 
+messages = [
+        "Good morning! ",
+        "Hey! ",
+        "This sounds good! "
+]
+
+opening_message = random.choice(messages)
+
 # Connection to the database
 db_conn = mariadb.connect(user='root', password='testpassword', database='jp1')
 cursor = db_conn.cursor()
@@ -23,21 +32,17 @@ today = datetime.date.today()
 query = ("SELECT primary_meal FROM lunch_menu WHERE lunch_date between %s and %s")
 cursor.execute(query, (today,today))
 
-# TODO: 
-#   Install Twython
-#   Instead of printing out the message, create the message and 
-#   tweet it.
+# Initialize the menu message
+lunch_msg = ""
 
-message = ""
-
-# Print out the menu today with a customized message
+# Print out the menu today with a customized lunch_msg
 for (primary_meal) in cursor:
-      message = "Good morning, Ralls! {} is for lunch today.".format((primary_meal[0].encode("utf-8")))
+      lunch_msg = "{} is for lunch today.".format((primary_meal[0].encode("utf-8")))
 
 # Only send the tweet if we have a result  
-if message:
-  twitter.update_status(status=message)
-  print("Tweeted: {}".format(message))
+if lunch_msg:
+  twitter.update_status(status=opening_message + lunch_msg)
+  print("Tweeted the menu for today!")
 
 # Close the cursor and the db connection
 cursor.close()
