@@ -41,8 +41,9 @@ for (primary_meal) in cursor:
 
 # Only send the tweet if we have a result  
 if lunch_msg:
-  twitter.update_status(status=opening_message + lunch_msg)
-  print("Tweeted the menu for today!")
+  msg = opening_message + lunch_msg
+  twitter.update_status(status=msg)
+  print("Tweeted " + msg)
 
 # Close the cursor and the db connection
 cursor.close()
