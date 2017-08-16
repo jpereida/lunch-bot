@@ -24,7 +24,7 @@ messages = [
 opening_message = random.choice(messages)
 
 # Connection to the database
-db_conn = mariadb.connect(user='root', password='testpassword', database='jp1')
+db_conn = mariadb.connect(user='root', password='testpassword', database='LunchBot')
 cursor = db_conn.cursor()
 
 # Select the menu for today's date

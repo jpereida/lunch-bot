@@ -1,5 +1,4 @@
-DROP DATABASE IF EXISTS LunchBot;
-CREATE DATABASE LunchBot;
+USE LunchBot;
 
 CREATE TABLE lunch_menu(
   lunch_date DATE NOT NULL,

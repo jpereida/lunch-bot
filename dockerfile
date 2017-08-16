@@ -1,5 +1,6 @@
 FROM mariadb:latest
 ENV MYSQL_ROOT_PASSWORD testpassword
+ENV MYSQL_DATABASE LunchBot
 
 # Update
 RUN \
@@ -16,3 +17,4 @@ RUN pip install twython
 
 # Bundle app source
 COPY /code/ .
+
