@@ -1,4 +1,5 @@
-import datetime
+from datetime import datetime
+from pytz import timezone
 import random
 import mysql.connector as mariadb
 from twython import Twython
@@ -27,8 +28,16 @@ opening_message = random.choice(messages)
 db_conn = mariadb.connect(user='root', password='testpassword', database='LunchBot')
 cursor = db_conn.cursor()
 
+fmt = "%Y-%m-%d"
+
+# Current time in UTC
+now_utc = datetime.now(timezone('UTC'))
+
+# Convert to US/Central time zone
+now_central = now_utc.astimezone(timezone('US/Central'))
+
 # Select the menu for today's date
-today = datetime.date.today()
+today = now_central.strftime(fmt)
 query = ("SELECT primary_meal FROM lunch_menu WHERE lunch_date between %s and %s")
 cursor.execute(query, (today,today))
 
@@ -44,6 +53,8 @@ if lunch_msg:
   msg = opening_message + lunch_msg
   twitter.update_status(status=msg)
   print("Tweeted " + msg)
+else:
+  print("No menu found")
 
 # Close the cursor and the db connection
 cursor.close()

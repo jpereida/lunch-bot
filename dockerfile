@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 # Install app dependencies
 RUN pip install mysql-connector==2.1.4
 RUN pip install twython
+RUN pip install pytz
 
 # Bundle app source
 COPY /code/ .
