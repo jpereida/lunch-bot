@@ -38,8 +38,8 @@ now_central = now_utc.astimezone(timezone('US/Central'))
 
 # Select the menu for today's date
 today = now_central.strftime(fmt)
-query = ("SELECT primary_meal FROM lunch_menu WHERE lunch_date between %s and %s")
-cursor.execute(query, (today,today))
+query = ("SELECT primary_meal FROM lunch_menu WHERE lunch_date = %(lnch_date)s")
+cursor.execute(query, { 'lnch_date': today })
 
 # Initialize the menu message
 lunch_msg = ""
