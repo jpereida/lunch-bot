@@ -7,7 +7,8 @@ from auth import (
     consumer_key,
     consumer_secret,
     access_token,
-    access_token_secret
+    access_token_secret,
+    maria_pass
 )
 twitter = Twython(
     consumer_key,
@@ -25,7 +26,7 @@ messages = [
 opening_message = random.choice(messages)
 
 # Connection to the database
-db_conn = mariadb.connect(user='root', password='testpassword', database='LunchBot')
+db_conn = mariadb.connect(user='root', password=maria_pass, database='LunchBot')
 cursor = db_conn.cursor()
 
 fmt = "%Y-%m-%d"
