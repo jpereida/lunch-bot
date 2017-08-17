@@ -14,3 +14,5 @@ A twitter bot that reads a mariadb and tweets out the lunch menu for the day.
 2. Install MariaDB
 3. Run db-scripts.sql to create database, table, insert some data
 4. Run pip install -r requirements.txt
+
+If you are running Docker, just build with the dockerfile and then use db-scripts.sql.
