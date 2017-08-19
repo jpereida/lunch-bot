@@ -14,19 +14,21 @@ def GetTodaysDateCST():
     now_central = now_utc.astimezone(timezone('US/Central'))
     return now_central.strftime(fmt)
 
-def GetTodaysLunchItem():
+def GetTodaysLunchItems():
     # Connection to the database
     db_conn = GetDbConn()
     cursor = db_conn.cursor()
-    query = ("SELECT primary_meal FROM lunch_menu WHERE lunch_date = %(lnch_date)s")
+    query = ("SELECT primary_meal, secondary_meal FROM lunch_menu WHERE lunch_date = %(lnch_date)s")
     cursor.execute(query, { 'lnch_date': GetTodaysDateCST() })
 
-    meal = ""
-    for (primary_meal) in cursor:
-        meal = primary_meal[0].encode("utf-8")
+    meals = []
+    for (primary_meal, secondary_meal) in cursor:
+        meals.append(primary_meal.encode("utf-8"))
+        if secondary_meal:
+            meals.append(secondary_meal.encode("utf-8"))
 
     # Close the cursor and the db connection
     cursor.close()
     db_conn.close()
 
-    return meal
+    return meals

@@ -1,5 +1,5 @@
 import dbhelper
-import random
+import messagehelper
 from twython import Twython
 from auth import (
     consumer_key,
@@ -14,18 +14,12 @@ twitter = Twython(
     access_token_secret
 )
 
-messages = [
-        "Good morning! ",
-        "Hey! ",
-        "This sounds good! "
-]
-
-# Get the lunch item for the day
-lunch_item = dbhelper.GetTodaysLunchItem()
+# Get the lunch items for the day
+lunch_items = dbhelper.GetTodaysLunchItems()
 
 # Only send the tweet if we have a result  
-if lunch_item:
-  msg = random.choice(messages) + "Today's menu is " + lunch_item
+if len(lunch_items) <> 0:
+  msg = messagehelper.LunchMessage(lunch_items)
   twitter.update_status(status=msg)
   print("Tweeted " + msg)
 else:
