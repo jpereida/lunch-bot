@@ -1,16 +1,16 @@
 import random
 
 messages = [
-        "Good morning! ",
-        "Hey! ",
-        "This sounds good! ",
-        "Sounds delicious! ",
-        "Yesss! ",
-        "Hello! "
+        "Good morning!",
+        "Hey!",
+        "This sounds good!",
+        "Sounds delicious!",
+        "Yesss!",
+        "Hello!"
 ]
 
 def RandomMessage():
-    return random.choice(messages)
+    return random.choice(messages) + " "
 
 def SingleItemLunchMessage(item):
     msg = '{}Today''s menu is {}'.format(RandomMessage(), item)
