@@ -20,3 +20,8 @@ A twitter bot that reads a mariadb and tweets out the lunch menu for the day.
 If you are running Docker, just build with the dockerfile and then use db-scripts.sql.
 
 After setup, you should be to run prog.py
+
+# Links
+https://downloads.mariadb.org/mariadb/10.2.7/
+https://www.python.org/downloads/release/python-2711/
+https://pip.pypa.io/en/stable/installing/
